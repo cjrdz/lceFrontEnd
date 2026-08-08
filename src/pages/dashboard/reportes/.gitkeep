@@ -1,0 +1,6 @@
+# reportes pages
+
+Planned pages:
+- index.astro — selección de reportes.
+- estimado-vs-real.astro — reporte detallado por caso.
+- aggregate.astro — agregados por tipo/zona/fecha.

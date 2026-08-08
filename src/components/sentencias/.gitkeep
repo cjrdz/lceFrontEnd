@@ -1,0 +1,5 @@
+# sentencias components
+
+Planned components:
+- SentenciaForm.svelte — registrar fecha dictada y resultado.
+- SentenciaFirme.svelte — confirmar fecha firme calculada.

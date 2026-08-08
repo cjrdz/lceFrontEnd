@@ -1,0 +1,6 @@
+# BFF casestages routes
+
+Future endpoints:
+- index.ts — GET catalog, POST create.
+- [id].ts — GET, PUT, DELETE.
+- [id]/history.ts — GET/POST case stage history.

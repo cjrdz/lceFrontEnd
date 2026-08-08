@@ -1,0 +1,5 @@
+# expedientes pages
+
+Planned pages:
+- [caseId].astro — expediente digital del caso.
+- [caseId]/[documentId].astro — ver documento / historial de versiones.

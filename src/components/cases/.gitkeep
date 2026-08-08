@@ -1,0 +1,7 @@
+# cases components
+
+Planned components:
+- CasesPage.svelte — listado de casos por cliente.
+- CaseForm.svelte — crear/editar caso.
+- CaseDetail.svelte — detalle, costo acumulado, etapas.
+- CaseTimeline.svelte — línea de tiempo del ciclo de vida.

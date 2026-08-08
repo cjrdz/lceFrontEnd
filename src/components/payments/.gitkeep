@@ -1,0 +1,5 @@
+# payments components
+
+Planned components:
+- PaymentForm.svelte — registrar pago del deudor.
+- PaymentHistory.svelte — historial de pagos.

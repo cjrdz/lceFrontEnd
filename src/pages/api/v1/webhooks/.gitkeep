@@ -1,0 +1,5 @@
+# BFF webhooks routes
+
+Future endpoints:
+- dte.ts — POST Factura Electrónica / DTE JSON from provider.
+- ocr.ts — POST OCR/IDP callback results.

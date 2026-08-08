@@ -1,0 +1,4 @@
+# BFF conciliaciones routes
+
+Future endpoints:
+- [caseId].ts — GET, POST, PUT for case conciliación.

@@ -1,0 +1,6 @@
+# reports components
+
+Planned components:
+- ReportsPage.svelte — selección de reportes.
+- EstimateVsRealReport.svelte — detalle por caso.
+- AggregateReport.svelte — agregados por tipo/zona/fecha.

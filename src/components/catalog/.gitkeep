@@ -1,0 +1,6 @@
+# catalog components
+
+Planned components:
+- CatalogPage.svelte — tabla de catálogo de costos.
+- CatalogForm.svelte — crear/editar ítem.
+- CatalogImport.svelte — importar CSV/JSON del despacho.

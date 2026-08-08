@@ -1,0 +1,8 @@
+# BFF documents routes
+
+Future endpoints:
+- [caseId].ts — GET list, POST upload.
+- [caseId]/[documentId].ts — GET, PUT, DELETE.
+- [caseId]/[documentId]/versions.ts — GET version history.
+- [documentId]/edit.ts — GET OnlyOffice editor config.
+- [documentId]/callback.ts — POST OnlyOffice save callback.

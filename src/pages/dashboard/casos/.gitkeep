@@ -1,0 +1,6 @@
+# casos pages
+
+Planned pages:
+- index.astro — listado de casos (con filtro por cliente).
+- [id].astro — detalle del caso (etapas, costos, documentos).
+- new.astro — crear caso.

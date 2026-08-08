@@ -1,0 +1,5 @@
+# BFF uploads routes
+
+Future endpoints:
+- index.ts — POST multipart file upload (returns attachment metadata).
+- [id].ts — GET signed download URL.

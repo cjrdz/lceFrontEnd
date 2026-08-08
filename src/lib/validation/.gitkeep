@@ -1,0 +1,16 @@
+# lib/validation directory
+
+Planned files:
+- client.ts — schema for client form.
+- case.ts — schema for case form.
+- conciliacion.ts — schema for conciliation.
+- edicto.ts — schema for publications.
+- curador.ts — schema for curator.
+- sentencia.ts — schema for sentence.
+- diligencia.ts — schema for embargo diligence.
+- gasto.ts — schema for operational expense.
+- catalog.ts — schema for cost catalog item.
+- invoice.ts — schema for invoice review.
+- payment.ts — schema for payment.
+- document.ts — schema for document upload.
+- user.ts — schema for user forms.

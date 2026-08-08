@@ -1,0 +1,7 @@
+# BFF cases routes
+
+Future endpoints:
+- index.ts — GET list, POST create.
+- [id].ts — GET, PUT, DELETE.
+- [id]/stages.ts — GET history, POST advance.
+- [id]/costs.ts — GET accumulated cost summary.

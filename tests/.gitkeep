@@ -1,0 +1,6 @@
+# src/tests directory
+
+Planned integration tests:
+- auth.spec.ts — login/logout flow.
+- dashboard.spec.ts — navigation and role guards.
+- invoice-flow.spec.ts — upload → review → approve smoke test.

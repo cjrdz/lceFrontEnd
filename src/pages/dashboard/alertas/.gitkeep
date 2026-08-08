@@ -1,0 +1,5 @@
+# alertas pages
+
+Planned pages:
+- index.astro — listado de alertas de plazos legales.
+- [id].astro — detalle y marcar atendida.

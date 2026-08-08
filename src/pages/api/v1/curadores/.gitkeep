@@ -1,0 +1,4 @@
+# BFF curadores routes
+
+Future endpoints:
+- [caseId].ts — GET, POST, PUT for curador ad-litem.

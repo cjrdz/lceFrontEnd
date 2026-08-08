@@ -1,0 +1,5 @@
+# etapas pages
+
+Planned pages:
+- index.astro — catálogo de etapas del despacho.
+- [caseId].astro — historial de etapas de un caso.

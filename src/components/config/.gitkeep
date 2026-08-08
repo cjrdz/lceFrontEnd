@@ -1,0 +1,6 @@
+# config components
+
+Planned components:
+- FirmSettings.svelte — configuración del despacho.
+- ApprovalThreshold.svelte — umbral de segunda aprobación.
+- RolesMatrix.svelte — matriz de permisos (solo lectura visual).

@@ -1,0 +1,6 @@
+# clients components
+
+Planned components:
+- ClientsPage.svelte — listado y búsqueda.
+- ClientForm.svelte — crear/editar cliente.
+- ClientCard.svelte — tarjeta resumen.

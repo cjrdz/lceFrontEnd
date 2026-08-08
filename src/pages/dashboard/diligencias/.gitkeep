@@ -1,0 +1,7 @@
+# diligencias pages
+
+Planned pages:
+- index.astro — listado de diligencias asignadas.
+- [caseId].astro — diligencias del caso.
+- new.astro — asignar diligencia.
+- ejecutor.astro — vista especial para rol Ejecutor.

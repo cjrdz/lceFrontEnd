@@ -1,0 +1,6 @@
+# gastos components
+
+Planned components:
+- GastosForm.svelte — registrar gasto operativo.
+- GastosList.svelte — listado por caso.
+- MensajeroDistance.svelte — input de distancia para mensajero.

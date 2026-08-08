@@ -1,0 +1,50 @@
+---
+import DashboardLayout from "../components/layout/DashboardLayout.svelte";
+import type { UserContext } from "../lib/stores/auth";
+import "../styles/global.css";
+
+export const prerender = false;
+
+// The middleware guarantees user and firm are set before rendering /dashboard.
+const userContext: UserContext = {
+    user: Astro.locals.user!,
+    role: Astro.locals.role ?? null,
+    firm: Astro.locals.firm!,
+    password_expired: Astro.locals.password_expired ?? false,
+};
+---
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="/law.png" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>LCE | Dashboard</title>
+    </head>
+    <body>
+        <DashboardLayout userContext={userContext} title="Inicio" client:load>
+            <div class="rounded-lg border bg-card p-6">
+                <h2 class="text-2xl font-bold mb-2">Dashboard — Fase 1</h2>
+                <p class="text-muted-foreground">Módulos próximamente.</p>
+                <div class="mt-6 grid gap-4 text-sm">
+                    <p>
+                        <strong>Usuario:</strong>
+                        {userContext.user?.full_name} ({
+                            userContext.user?.email
+                        })
+                    </p>
+                    <p>
+                        <strong>Rol:</strong>
+                        {
+                            userContext.role
+                                ? userContext.role.name
+                                : "Pendiente de aprobación"
+                        }
+                    </p>
+                    <p><strong>Despacho:</strong> {userContext.firm?.name}</p>
+                </div>
+            </div>
+        </DashboardLayout>
+    </body>
+</html>

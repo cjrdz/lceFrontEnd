@@ -1,0 +1,7 @@
+# facturas pages
+
+Planned pages:
+- index.astro — listado de facturas de proveedor.
+- upload.astro — subir PDF / recibir JSON DTE.
+- [id].astro — detalle de factura y revisión de líneas.
+- [id]/approval.astro — aprobación de líneas de alto monto.

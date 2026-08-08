@@ -1,0 +1,6 @@
+# diligencias components
+
+Planned components:
+- DiligenciasPage.svelte — listado de diligencias.
+- DiligenciaForm.svelte — asignar tipo, zona y ejecutor.
+- EjecutorUpdate.svelte — vista para rol Ejecutor (actualizar estado, costo, comprobante).

@@ -1,0 +1,6 @@
+# BFF catalog routes
+
+Future endpoints:
+- index.ts — GET list, POST create.
+- [id].ts — GET, PUT, DELETE.
+- import.ts — POST import CSV/JSON.

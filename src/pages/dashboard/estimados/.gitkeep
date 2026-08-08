@@ -1,0 +1,5 @@
+# estimados pages
+
+Planned pages:
+- [caseId].astro — generar y ver estimado del caso.
+- [caseId]/history.astro — historial de versiones.

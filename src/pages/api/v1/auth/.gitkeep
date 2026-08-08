@@ -1,0 +1,6 @@
+# BFF auth routes
+
+Future endpoints:
+- callback.astro / callback.ts — SuperTokens callbacks.
+- session.ts — session refresh/info.
+- password.ts — password reset flows.

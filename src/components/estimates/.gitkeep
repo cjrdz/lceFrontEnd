@@ -1,0 +1,6 @@
+# estimates components
+
+Planned components:
+- EstimateGenerator.svelte — generar estimado desde catálogo.
+- EstimateView.svelte — mostrar snapshot breakdown_json.
+- EstimateVsReal.svelte — comparación por caso.

@@ -1,0 +1,6 @@
+# configuracion pages
+
+Planned pages:
+- index.astro — configuración general del despacho.
+- catalog.astro — redirección a /dashboard/catalogo.
+- roles.astro — matriz de permisos (solo Admin).

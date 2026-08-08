@@ -1,0 +1,5 @@
+# curadores components
+
+Planned components:
+- CuradorForm.svelte — registrar asignación, juramentación, contestación.
+- CuradorHonorarios.svelte — control de honorarios negociables.

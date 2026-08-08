@@ -1,0 +1,6 @@
+# case-stages components
+
+Planned components:
+- StageCatalog.svelte — catálogo de etapas del despacho.
+- StageHistory.svelte — historial de avance de un caso.
+- StageAdvance.svelte — botón para avanzar etapa.

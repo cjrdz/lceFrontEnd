@@ -1,0 +1,7 @@
+# lib/format directory
+
+Planned files:
+- money.ts — format USD with DECIMAL(12,2), no float rounding issues.
+- dates.ts — format dates to es-SV, business days display.
+- distance.ts — format km for messenger.
+- status.ts — translate status labels (pending, approved, etc.).

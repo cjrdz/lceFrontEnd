@@ -1,0 +1,6 @@
+# clientes pages
+
+Planned pages:
+- index.astro — listado de clientes.
+- [id].astro — detalle/editar cliente.
+- new.astro — crear cliente.

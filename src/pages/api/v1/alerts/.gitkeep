@@ -1,0 +1,5 @@
+# BFF alerts routes
+
+Future endpoints:
+- index.ts — GET list (scoped by user role).
+- [id].ts — GET, POST mark attended.

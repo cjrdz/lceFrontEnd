@@ -1,0 +1,5 @@
+# edictos components
+
+Planned components:
+- EdictosForm.svelte — registrar 3 nacionales + 1 oficial.
+- EdictoList.svelte — listado de publicaciones por caso.

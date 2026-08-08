@@ -1,0 +1,6 @@
+# BFF diligencias routes
+
+Future endpoints:
+- index.ts — GET list (Ejecutor sees own).
+- [caseId].ts — GET, POST create.
+- [caseId]/[id].ts — GET, PUT (Ejecutor updates status/cost).

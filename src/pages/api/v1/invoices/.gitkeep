@@ -1,0 +1,9 @@
+# BFF invoices routes
+
+Future endpoints:
+- index.ts — GET list, POST create (JSON DTE) / upload PDF.
+- [id].ts — GET invoice.
+- [id]/lines.ts — GET lines, POST review.
+- [id]/lines/[lineId].ts — PUT line, POST approve.
+- upload.ts — POST multipart upload.
+- webhooks.ts — POST provider webhook.

@@ -1,0 +1,6 @@
+# BFF reports routes
+
+Future endpoints:
+- index.ts — GET available reports.
+- estimate-vs-real.ts — GET detailed by case.
+- aggregate.ts — GET aggregated by type/zone/date.

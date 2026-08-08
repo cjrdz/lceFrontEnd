@@ -1,0 +1,7 @@
+# invoices components
+
+Planned components:
+- InvoiceUpload.svelte — subir PDF o recibir JSON DTE.
+- InvoiceReview.svelte — cola de líneas pendientes de revisión.
+- InvoiceApproval.svelte — aprobación de segundo nivel por Admin.
+- InvoiceLineList.svelte — listado de líneas confirmadas.

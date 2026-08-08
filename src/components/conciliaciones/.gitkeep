@@ -1,0 +1,5 @@
+# conciliaciones components
+
+Planned components:
+- ConciliacionForm.svelte — registrar/editar conciliación.
+- CuotasPreview.svelte — vista de cuotas y frecuencia.

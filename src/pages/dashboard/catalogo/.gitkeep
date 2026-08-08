@@ -1,0 +1,5 @@
+# catalogo pages
+
+Planned pages:
+- index.astro — catálogo de costos.
+- import.astro — importar catálogo CSV/JSON.

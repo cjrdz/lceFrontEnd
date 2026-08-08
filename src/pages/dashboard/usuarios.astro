@@ -1,0 +1,31 @@
+---
+import DashboardLayout from "../../components/layout/DashboardLayout.svelte";
+import UsersPage from "../../components/users/UsersPage.svelte";
+import type { UserContext } from "../../lib/stores/auth";
+import "../../styles/global.css";
+
+export const prerender = false;
+
+// The middleware guarantees user and firm are set before rendering /dashboard.
+const userContext: UserContext = {
+    user: Astro.locals.user!,
+    role: Astro.locals.role ?? null,
+    firm: Astro.locals.firm!,
+    password_expired: Astro.locals.password_expired ?? false,
+};
+---
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="/law.png" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>LCE | Usuarios</title>
+    </head>
+    <body>
+        <DashboardLayout userContext={userContext} title="Usuarios" client:load>
+            <UsersPage client:load />
+        </DashboardLayout>
+    </body>
+</html>

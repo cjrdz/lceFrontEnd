@@ -1,0 +1,21 @@
+# lib/types directory
+
+Planned files:
+- index.ts — barrel export.
+- client.ts — Client model.
+- case.ts — Case model, CaseStage, CaseStageHistory.
+- conciliacion.ts — Conciliacion.
+- edicto.ts — EdictoPublicacion.
+- curador.ts — CuradorAdLitem.
+- sentencia.ts — Sentencia.
+- diligencia.ts — DiligenciaEmbargo.
+- gasto.ts — GastoOperativo.
+- catalog.ts — CostCatalog.
+- invoice.ts — Invoice, InvoiceLineItem.
+- estimate.ts — CostEstimate.
+- payment.ts — Payment.
+- document.ts — CaseDocument, Attachment.
+- alert.ts — Alert.
+- rights.ts — DataRightsRequest.
+- user.ts — User/Role (shared with auth).
+- firm.ts — Firm.

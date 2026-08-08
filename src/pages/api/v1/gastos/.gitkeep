@@ -1,0 +1,5 @@
+# BFF gastos routes
+
+Future endpoints:
+- [caseId].ts — GET list, POST create.
+- [caseId]/[id].ts — GET, PUT, DELETE.

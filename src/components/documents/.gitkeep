@@ -1,0 +1,7 @@
+# documents components
+
+Planned components:
+- DocumentExplorer.svelte — árbol del expediente digital.
+- DocumentUploader.svelte — subir nuevo documento / versión.
+- DocumentViewer.svelte — integración con OnlyOffice.
+- VisibilityToggle.svelte — marcar visible_to_client.

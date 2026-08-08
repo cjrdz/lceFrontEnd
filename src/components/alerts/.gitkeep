@@ -1,0 +1,6 @@
+# alerts components
+
+Planned components:
+- AlertsWidget.svelte — alertas pendientes en dashboard.
+- AlertsPage.svelte — listado completo.
+- AlertResolve.svelte — marcar atendida.

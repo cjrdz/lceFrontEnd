@@ -1,0 +1,18 @@
+---
+import PendingApproval from "../components/auth/PendingApproval.svelte";
+import "../styles/global.css";
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>LegalCore — Cuenta pendiente</title>
+	</head>
+	<body>
+		<PendingApproval client:load />
+	</body>
+</html>
