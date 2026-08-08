@@ -4,8 +4,8 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 PUBLIC_WEBSITE_DOMAIN = "https://app.lce.example.com"
-PUBLIC_API_DOMAIN = "https://api.lce.example.com"
-PUBLIC_SUPERTOKENS_CONNECTION_URI = "https://your-supertokens-core.aws.supertokens.io"
+PUBLIC_API_DOMAIN = "https://lcebackend-production.up.railway.app"
+PUBLIC_SUPERTOKENS_CONNECTION_URI = "https://st-dev-39589cc0-902e-11f1-9fab-fd72950206c2.aws.supertokens.io"
 # IMPORTANT: Do not put the SuperTokens core API key here. It is a backend secret.
 # If you need a public app key, set it via wrangler secret put:
 #   npx wrangler secret put PUBLIC_SUPERTOKENS_API_KEY --env <ENV>

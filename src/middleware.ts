@@ -12,13 +12,20 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
 	const apiDomain = import.meta.env.PUBLIC_API_DOMAIN || "http://localhost:8080";
 	const meUrl = `${apiDomain}/api/v1/me`;
 
-	const response = await fetch(meUrl, {
-		method: "GET",
-		headers: {
-			cookie: request.headers.get("cookie") || "",
-		},
-		credentials: "include",
-	});
+	let response: Response;
+	try {
+		response = await fetch(meUrl, {
+			method: "GET",
+			headers: {
+				cookie: request.headers.get("cookie") || "",
+			},
+			credentials: "include",
+		});
+	} catch {
+		// Backend unreachable (dev backend not running, network down, etc.).
+		// Redirect to login instead of crashing the page.
+		return context.redirect("/login");
+	}
 
 	if (!response.ok) {
 		return context.redirect("/login");

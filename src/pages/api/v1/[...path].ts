@@ -15,14 +15,26 @@ async function proxy(request: Request) {
 	}
 	headers.set("host", new URL(backendUrl).host);
 
-	const backendResponse = await fetch(target, {
-		method: request.method,
-		headers,
-		body: request.body,
-		redirect: "manual",
-		// @ts-expect-error streaming body support
-		duplex: "half",
-	});
+	let backendResponse: Response;
+	try {
+		backendResponse = await fetch(target, {
+			method: request.method,
+			headers,
+			body: request.body,
+			redirect: "manual",
+			// @ts-expect-error streaming body support
+			duplex: "half",
+		});
+	} catch {
+		// Backend unreachable. Return a clean 503 instead of crashing the dev server.
+		return new Response(
+			JSON.stringify({ status: "error", message: "Backend no disponible" }),
+			{
+				status: 503,
+				headers: { "content-type": "application/json" },
+			},
+		);
+	}
 
 	const responseHeaders = new Headers();
 	backendResponse.headers.forEach((value, key) => {
