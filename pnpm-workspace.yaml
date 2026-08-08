@@ -1,3 +1,12 @@
+packages:
+  - '.'
+
+onlyBuiltDependencies:
+  - browser-tabs-lock
+  - esbuild
+  - sharp
+  - workerd
+
 allowBuilds:
   browser-tabs-lock: true
   esbuild: true
