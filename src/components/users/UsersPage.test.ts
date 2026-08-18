@@ -65,7 +65,7 @@ describe("UsersPage", () => {
 		render(UsersPage);
 
 		await waitFor(() =>
-			expect(screen.getByText("No se encontraron usuarios.")).toBeInTheDocument(),
+			expect(screen.getByText("No se encontraron usuarios")).toBeInTheDocument(),
 		);
 	});
 
@@ -99,7 +99,11 @@ describe("UsersPage", () => {
 
 		await waitFor(() => expect(screen.getByText("Pending User")).toBeInTheDocument());
 
-		await fireEvent.click(screen.getByRole("button", { name: "Aprobar" }));
+		await fireEvent.click(screen.getByRole("button", { name: "Abrir menú" }));
+		await waitFor(() =>
+			expect(screen.getByRole("menuitem", { name: "Aprobar" })).toBeInTheDocument(),
+		);
+		await fireEvent.click(screen.getByRole("menuitem", { name: "Aprobar" }));
 		await waitFor(() => expect(screen.getByText("Aprobar acceso")).toBeInTheDocument());
 
 		const dialog = screen.getByRole("dialog");

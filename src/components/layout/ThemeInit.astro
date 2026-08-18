@@ -1,0 +1,45 @@
+---
+// This component must be placed inside <head> on every page.
+// It runs an inline script before first paint to apply the user's saved
+// theme or system preference, preventing a flash of the wrong theme.
+---
+
+<script is:inline>
+	(function () {
+		const STORAGE_KEY = "lce-theme";
+		const DARK_THEME = "dark";
+		const LIGHT_THEME = "light";
+
+		function getTheme() {
+			if (typeof window !== "undefined" && typeof window.localStorage !== "undefined") {
+				try {
+					const saved = window.localStorage.getItem(STORAGE_KEY);
+					if (saved === LIGHT_THEME || saved === DARK_THEME) {
+						return saved;
+					}
+				} catch {
+					// localStorage may be blocked or unavailable.
+				}
+			}
+
+			if (
+				typeof window !== "undefined" &&
+				window.matchMedia("(prefers-color-scheme: dark)").matches
+			) {
+				return DARK_THEME;
+			}
+
+			return LIGHT_THEME;
+		}
+
+		const theme = getTheme();
+		const root = document.documentElement;
+
+		if (theme === DARK_THEME) {
+			root.classList.add(DARK_THEME);
+		} else {
+			root.classList.remove(DARK_THEME);
+		}
+		root.setAttribute("data-theme", theme);
+	})();
+</script>

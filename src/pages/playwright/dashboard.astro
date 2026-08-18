@@ -1,0 +1,43 @@
+---
+import DashboardLayout from "../../components/layout/DashboardLayout.svelte";
+import HomePage from "../../components/dashboard/HomePage.svelte";
+import ThemeInit from "../../components/layout/ThemeInit.astro";
+import type { UserContext } from "../../lib/stores/auth";
+import "../../styles/global.css";
+
+export const prerender = false;
+
+// This page is only intended for Playwright visual regression tests.
+if (import.meta.env.PROD) {
+	return Astro.redirect("/");
+}
+
+const userContext: UserContext = {
+	user: {
+		id: 1,
+		full_name: "Jonathan Rodriguez",
+		email: "jonathanrdzdev@gmail.com",
+		status: "active",
+		created_at: "2026-08-18T04:08:57Z",
+	},
+	role: { id: 1, name: "Admin" },
+	firm: { id: 1, name: "LegalCore Dev", tax_id: "00000000-0", status: "active" },
+	password_expired: false,
+};
+---
+
+<html lang="es">
+	<head>
+		<ThemeInit />
+		<meta charset="utf-8" />
+		<link rel="icon" href="/law.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<title>LCE | Debug Dashboard</title>
+	</head>
+	<body>
+		<DashboardLayout userContext={userContext} title="Inicio" client:load>
+			<HomePage userContext={userContext} client:load />
+		</DashboardLayout>
+	</body>
+</html>

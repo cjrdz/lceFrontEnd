@@ -16,11 +16,16 @@
 	import { Button } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { Label } from "$lib/components/ui/label";
-	import { Badge } from "$lib/components/ui/badge";
 	import * as Table from "$lib/components/ui/table";
 	import * as Dialog from "$lib/components/ui/dialog";
 	import * as Select from "$lib/components/ui/select";
+	import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+	import * as Tooltip from "$lib/components/ui/tooltip";
+	import * as Avatar from "$lib/components/ui/avatar";
+	import { Skeleton } from "$lib/components/ui/skeleton";
+	import { cn } from "$lib/utils.js";
 	import Icon from "@iconify/svelte";
+	import AnimatedIcon from "$lib/components/ui/AnimatedIcon.svelte";
 
 	let users = $state<ApiUser[]>([]);
 	let roles = $state<ApiRole[]>([]);
@@ -206,52 +211,135 @@
 		return roles.find((r) => r.id === id)?.name ?? "—";
 	}
 
-	function statusVariant(status: string): Badge["variant"] {
-		if (status === "active") return "secondary";
-		if (status === "pending") return "default";
-		return "outline";
-	}
-
 	function statusLabel(status: string) {
 		if (status === "active") return "Activo";
 		if (status === "pending") return "Pendiente";
 		return "Inactivo";
 	}
+
+	function statusClasses(status: string) {
+		if (status === "active") return "bg-emerald-500/10 text-emerald-700 ring-emerald-600/20";
+		if (status === "pending") return "bg-amber-500/10 text-amber-700 ring-amber-600/20";
+		return "bg-zinc-500/10 text-zinc-600 ring-zinc-600/20";
+	}
+
+	function statusDotClass(status: string) {
+		if (status === "active") return "bg-emerald-500";
+		if (status === "pending") return "bg-amber-500";
+		return "bg-zinc-400";
+	}
+
+	function initials(name: string) {
+		return name
+			.split(/\s+/)
+			.filter(Boolean)
+			.slice(0, 2)
+			.map((part) => part[0]?.toUpperCase() ?? "")
+			.join("");
+	}
+
+	const avatarColors = [
+		"bg-sky-100 text-sky-700",
+		"bg-violet-100 text-violet-700",
+		"bg-rose-100 text-rose-700",
+		"bg-emerald-100 text-emerald-700",
+		"bg-amber-100 text-amber-700",
+		"bg-teal-100 text-teal-700",
+	];
+
+	function avatarColor(id: number) {
+		return avatarColors[id % avatarColors.length];
+	}
+
+	type RowAction = {
+		key: string;
+		label: string;
+		icon: string;
+		disabled?: boolean;
+		destructive?: boolean;
+		onClick: () => void;
+	};
+
+	function rowActions(user: ApiUser): RowAction[] {
+		return [
+			user.status === "pending" && {
+				key: "approve",
+				label: "Aprobar",
+				icon: "lucide:user-check",
+				onClick: () => openApprove(user),
+			},
+			{
+				key: "edit",
+				label: "Editar",
+				icon: "lucide:pencil",
+				onClick: () => openEdit(user),
+			},
+			{
+				key: "toggle",
+				label: user.status === "active" ? "Desactivar" : "Activar",
+				icon: user.status === "active" ? "lucide:user-x" : "lucide:user-check",
+				disabled: user.status === "pending",
+				onClick: () => toggleStatus(user),
+			},
+			{
+				key: "link",
+				label: "Enlace de acceso",
+				icon: "lucide:link",
+				onClick: () => handleResetLink(user),
+			},
+			{
+				key: "delete",
+				label: "Eliminar",
+				icon: "lucide:trash-2",
+				destructive: true,
+				onClick: () => (deleteConfirmUser = user),
+			},
+		].filter(Boolean) as RowAction[];
+	}
 </script>
 
+<Tooltip.Provider>
 <div class="space-y-4">
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<h2 class="text-2xl font-bold">Usuarios</h2>
+		<div>
+			<h2 class="text-2xl font-bold">Usuarios</h2>
+			<p class="mt-1 text-sm text-muted-foreground">
+				Administra los usuarios del despacho, sus roles y su estado de acceso.
+			</p>
+		</div>
 		<div class="flex gap-2">
 			<Button variant="outline" onclick={handleSync} disabled={syncing}>
 				<Icon icon="lucide:refresh-cw" class={"h-4 w-4" + (syncing ? " animate-spin" : "")} />
 				<span>{syncing ? "Sincronizando..." : "Sincronizar"}</span>
 			</Button>
 			<Button onclick={openCreate}>
-				<Icon icon="lucide:plus" class="h-4 w-4" />
+				<AnimatedIcon icon="lucide:plus" class="h-4 w-4" />
 				<span>Nuevo usuario</span>
 			</Button>
 		</div>
 	</div>
 
 	{#if syncMessage}
-		<div class="rounded-md border border-emerald-500/50 bg-emerald-500/10 p-3 text-sm text-emerald-700">
-			{syncMessage}
+		<div class="flex items-start gap-2 rounded-md border border-emerald-500/50 bg-emerald-500/10 p-3 text-sm text-emerald-700">
+			<Icon icon="lucide:check-circle-2" class="mt-0.5 h-4 w-4 shrink-0" />
+			<span>{syncMessage}</span>
 		</div>
 	{/if}
 
-	<div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-		<div class="flex items-center gap-2">
-			<Input
-				placeholder="Buscar por nombre o correo..."
-				class="w-full sm:w-72"
-				bind:value={search}
-				onkeydown={(e: KeyboardEvent) => e.key === "Enter" && load()}
-			/>
-			<Button variant="outline" onclick={load}>
-				<Icon icon="lucide:search" class="h-4 w-4" />
-			</Button>
-		</div>
+	<div class="overflow-hidden rounded-xl border bg-card shadow-sm">
+		<div class="flex flex-col gap-3 border-b p-4 sm:flex-row sm:items-center">
+			<div class="relative w-full sm:w-72">
+				<Icon
+					icon="lucide:search"
+					class="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+				/>
+				<Input
+					placeholder="Buscar por nombre o correo..."
+					class="w-full pl-9"
+					bind:value={search}
+					onkeydown={(e: KeyboardEvent) => e.key === "Enter" && load()}
+				/>
+			</div>
 		<Select.Root
 			type="single"
 			value={statusFilter}
@@ -274,81 +362,132 @@
 						</Select.Group>
 			</Select.Content>
 		</Select.Root>
-	</div>
-
-	{#if error}
-		<div class="rounded-md border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
-			{error}
 		</div>
-	{/if}
 
-	<div class="rounded-md border">
+		{#if error}
+			<div class="flex items-start gap-2 border-b border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
+				<Icon icon="lucide:alert-circle" class="mt-0.5 h-4 w-4 shrink-0" />
+				<span>{error}</span>
+			</div>
+		{/if}
+
 		<Table.Root>
 			<Table.Header>
-				<Table.Row>
-					<Table.Head>Nombre</Table.Head>
-					<Table.Head>Correo</Table.Head>
-					<Table.Head>Rol</Table.Head>
-					<Table.Head>Estado</Table.Head>
-					<Table.Head class="w-32 text-right">Acciones</Table.Head>
+				<Table.Row class="bg-muted/40">
+					<Table.Head class="px-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">Usuario</Table.Head>
+					<Table.Head class="px-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">Rol</Table.Head>
+					<Table.Head class="px-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">Estado</Table.Head>
+					<Table.Head class="w-12 px-4 text-right text-xs font-medium uppercase tracking-wide text-muted-foreground">Acciones</Table.Head>
 				</Table.Row>
 			</Table.Header>
 			<Table.Body>
 				{#if loading}
 					{#each [1, 2, 3] as _}
 						<Table.Row>
-							<Table.Cell colspan={5}>
-								<div class="h-8 animate-pulse rounded bg-muted"></div>
+							<Table.Cell class="px-4">
+								<div class="flex items-center gap-3">
+									<Skeleton class="size-9 rounded-full" />
+									<div class="space-y-2">
+										<Skeleton class="h-4 w-40" />
+										<Skeleton class="h-3 w-56" />
+									</div>
+								</div>
 							</Table.Cell>
+							<Table.Cell class="px-4"><Skeleton class="h-4 w-20" /></Table.Cell>
+							<Table.Cell class="px-4"><Skeleton class="h-5 w-20 rounded-full" /></Table.Cell>
+							<Table.Cell class="px-4 text-right"><Skeleton class="ml-auto h-8 w-8 rounded-md" /></Table.Cell>
 						</Table.Row>
 					{/each}
 				{:else if users.length === 0}
 					<Table.Row>
-						<Table.Cell colspan={5} class="text-center text-muted-foreground">
-							No se encontraron usuarios.
+						<Table.Cell colspan={4} class="px-4">
+							<div class="flex flex-col items-center justify-center gap-2 py-12 text-center">
+								<Icon icon="lucide:users" class="h-10 w-10 text-muted-foreground opacity-40" />
+								<p class="text-sm font-medium text-foreground">No se encontraron usuarios</p>
+								<p class="text-xs text-muted-foreground">Ajusta los filtros de búsqueda o crea un nuevo usuario.</p>
+							</div>
 						</Table.Cell>
 					</Table.Row>
 				{:else}
 					{#each users as user (user.id)}
 						<Table.Row>
-							<Table.Cell class="font-medium">{user.full_name}</Table.Cell>
-							<Table.Cell>{user.email}</Table.Cell>
-							<Table.Cell>{user.role?.name ?? roleLabel(user.role?.id)}</Table.Cell>
-							<Table.Cell>
-								<Badge variant={statusVariant(user.status)}>
-									{statusLabel(user.status)}
-								</Badge>
+							<Table.Cell class="px-4">
+								<div class="flex items-center gap-3">
+									<Avatar.Root class="size-9">
+										<Avatar.Fallback class={avatarColor(user.id)}>
+											{initials(user.full_name)}
+										</Avatar.Fallback>
+									</Avatar.Root>
+									<div class="min-w-0">
+										<p class="truncate text-sm font-medium">{user.full_name}</p>
+										<p class="truncate text-xs text-muted-foreground">{user.email}</p>
+									</div>
+								</div>
 							</Table.Cell>
-							<Table.Cell class="text-right">
-								<div class="flex justify-end gap-1">
-									{#if user.status === "pending"}
-										<Button variant="ghost" size="icon" title="Aprobar" onclick={() => openApprove(user)}>
-											<Icon icon="lucide:user-check" class="h-4 w-4" />
+							<Table.Cell class="px-4 text-sm">{user.role?.name ?? roleLabel(user.role?.id)}</Table.Cell>
+							<Table.Cell class="px-4">
+								<span
+									class={cn(
+										"inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset",
+										statusClasses(user.status)
+									)}
+								>
+									<span class={cn("h-1.5 w-1.5 rounded-full", statusDotClass(user.status))}></span>
+									{statusLabel(user.status)}
+								</span>
+							</Table.Cell>
+							<Table.Cell class="px-4 text-right">
+								<div class="hidden items-center justify-end gap-1 md:flex">
+									{#each rowActions(user) as action (action.key)}
+										<Tooltip.Root>
+											<Tooltip.Trigger>
+												{#snippet child({ props })}
+										<Button
+											{...props}
+											variant="ghost"
+											size="icon"
+											class={
+												"h-8 w-8" +
+												(action.destructive ? " text-destructive hover:text-destructive" : "")
+											}
+											disabled={action.disabled}
+											onclick={action.onClick}
+										>
+											<AnimatedIcon icon={action.icon} class="h-4 w-4" />
+											<span class="sr-only">{action.label}</span>
 										</Button>
-									{/if}
-									<Button variant="ghost" size="icon" title="Editar" onclick={() => openEdit(user)}>
-										<Icon icon="lucide:pencil" class="h-4 w-4" />
-									</Button>
-									<Button
-										variant="ghost"
-										size="icon"
-										disabled={user.status === "pending"}
-										title={user.status === "active" ? "Desactivar" : "Activar"}
-										onclick={() => toggleStatus(user)}
-									>
-										<Icon icon={user.status === "active" ? "lucide:user-x" : "lucide:user-check"} class="h-4 w-4" />
-									</Button>
-									<Button variant="ghost" size="icon" title="Enlace de acceso" onclick={() => handleResetLink(user)}>
-										<Icon icon="lucide:link" class="h-4 w-4" />
-									</Button>
-									<Button
-										variant="ghost"
-										size="icon"
-										title="Eliminar"
-										onclick={() => (deleteConfirmUser = user)}
-									>
-										<Icon icon="lucide:trash-2" class="h-4 w-4" />
-									</Button>
+												{/snippet}
+											</Tooltip.Trigger>
+											<Tooltip.Content>{action.label}</Tooltip.Content>
+										</Tooltip.Root>
+									{/each}
+								</div>
+								<div class="flex justify-end md:hidden">
+									<DropdownMenu.Root>
+										<DropdownMenu.Trigger>
+											{#snippet child({ props })}
+												<Button {...props} variant="ghost" size="icon" class="h-8 w-8">
+													<Icon icon="lucide:more-horizontal" class="h-4 w-4" />
+													<span class="sr-only">Abrir menú</span>
+												</Button>
+											{/snippet}
+										</DropdownMenu.Trigger>
+										<DropdownMenu.Content align="end" class="w-44">
+											{#each rowActions(user) as action, i (action.key)}
+												{#if action.destructive && i > 0}
+													<DropdownMenu.Separator />
+												{/if}
+												<DropdownMenu.Item
+													disabled={action.disabled}
+													onclick={action.onClick}
+													class={action.destructive ? "text-destructive focus:bg-destructive/10 focus:text-destructive" : ""}
+												>
+													<Icon icon={action.icon} class="mr-2 h-4 w-4" />
+													{action.label}
+												</DropdownMenu.Item>
+											{/each}
+										</DropdownMenu.Content>
+									</DropdownMenu.Root>
 								</div>
 							</Table.Cell>
 						</Table.Row>
@@ -358,6 +497,7 @@
 		</Table.Root>
 	</div>
 </div>
+</Tooltip.Provider>
 
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Content class="sm:max-w-md">

@@ -1,6 +1,7 @@
 ---
 import DashboardLayout from "../../components/layout/DashboardLayout.svelte";
 import UsersPage from "../../components/users/UsersPage.svelte";
+import ThemeInit from "../../components/layout/ThemeInit.astro";
 import type { UserContext } from "../../lib/stores/auth";
 import "../../styles/global.css";
 
@@ -17,9 +18,10 @@ const userContext: UserContext = {
 
 <html lang="es">
     <head>
+        <ThemeInit />
         <meta charset="utf-8" />
         <link rel="icon" href="/law.png" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
         <title>LCE | Usuarios</title>
     </head>

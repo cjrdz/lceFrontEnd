@@ -17,6 +17,7 @@ const userContext = {
 	},
 	role: { id: 1, name: "Admin" },
 	firm: { id: 1, name: "LegalCore Dev", tax_id: "00000000-0", status: "active" },
+	password_expired: false,
 };
 
 describe("DashboardLayout", () => {

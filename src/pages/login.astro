@@ -1,13 +1,15 @@
 ---
 import LoginForm from "../components/auth/LoginForm.svelte";
+import ThemeInit from "../components/layout/ThemeInit.astro";
 import "../styles/global.css";
 ---
 
 <html lang="es">
     <head>
+        <ThemeInit />
         <meta charset="utf-8" />
         <link rel="icon" href="/law.png" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="generator" content={Astro.generator} />
         <title>LCE | Iniciar sesión</title>
     </head>
