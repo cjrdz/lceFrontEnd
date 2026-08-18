@@ -34,3 +34,6 @@ pnpm-debug.log*
 # Test artifacts
 coverage/
 .playwright-cli/
+
+# Vercel build output
+.vercel/
