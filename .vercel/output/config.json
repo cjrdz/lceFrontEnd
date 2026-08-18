@@ -1,0 +1,88 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/v1/README/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/v1(?:/(.*?))?/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/auth/callback/google/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/auth/change-password/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/auth/forgot-password/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/auth/reset-password/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/auth/verify-email/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/dashboard/usuarios/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/dashboard/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/login/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/pending-approval/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/playwright/dashboard/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/README/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/.*$",
+			"dest": "_render",
+			"status": 404
+		}
+	]
+}

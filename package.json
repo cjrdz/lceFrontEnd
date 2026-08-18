@@ -18,6 +18,7 @@
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.7",
     "@astrojs/svelte": "^9.0.1",
+    "@astrojs/vercel": "^11.0.5",
     "@iconify/svelte": "^5.2.2",
     "@tailwindcss/vite": "^4.3.3",
     "animejs": "^4.5.0",

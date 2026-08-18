@@ -1,0 +1,1 @@
+import{mt as e}from"./client.C-XQJ1vU.js";e();
